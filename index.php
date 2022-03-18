@@ -23,6 +23,9 @@ require "config/db_conn.php";
     <header class="mb-5 header col-12 sticky-top bg-light p-2">
         <div class="container">
             <h1 class="mb-4 mx-auto col-6">Мой задачник</h1>
+            <div class="time-wrap mb-4 mx-auto col-6">
+                <span class="time-block"></span> часов
+            </div>
 
             <form action="config/insert_task.php" class="form mx-auto col-6" method="POST">
                 <div class="form-floating mb-3">
@@ -35,7 +38,7 @@ require "config/db_conn.php";
                         style="height: 100px" name="desc_task"></textarea>
                     <label for="floatingTextarea2">Описание</label>
                 </div>
-                <button class="mt-3 btn btn-primary d-block w-100">Создать</button>
+                <button class="new-task mt-3 btn btn-primary d-block w-100">Создать</button>
             </form>
         </div>
 
@@ -44,7 +47,6 @@ require "config/db_conn.php";
         <div class="container">
             <h1 class="mb-4 mx-auto col-6">Задачи</h1>
             <ul class="col-md-6 mx-auto todo__list">
-
                 <?php
 
                     $tasks = mysqli_query($conn, "SELECT * FROM `tasks` ORDER BY id DESC");
@@ -77,14 +79,7 @@ require "config/db_conn.php";
     </main>
 
 
-    <script>
-    $.ajax({
-        url: "time.php",
-        context: document.body
-    }).done(function() {
-        $(this).addClass("done");
-    });
-    </script>
+    <script src="js/ajax.js"></script>
 </body>
 
 </html>
