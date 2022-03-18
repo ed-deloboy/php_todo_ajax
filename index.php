@@ -20,14 +20,20 @@ require "config/db_conn.php";
 </head>
 
 <body>
-    <header class="mb-5 header col-12 sticky-top bg-light p-2">
+    <header class="mb-5 header col-12 sticky-top p-2">
+        <div class="container-fluid bg-white">
+            <div class="container ">
+                <div class="d-flex time-wrap">
+                    <span class="col-3 date-block"></span>
+                    <span class="col-3 time-block"></span>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <h1 class="mb-4 mx-auto col-6">Мой задачник</h1>
-            <div class="time-wrap mb-4 mx-auto col-6">
-                <span class="time-block"></span> часов
-            </div>
 
-            <form action="config/insert_task.php" class="form mx-auto col-6" method="POST">
+
+            <form action="config/insert_task.php" class="bg-light form mx-auto col-6" method="POST">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInput" placeholder="Нужно сделать..."
                         name="title_task">
@@ -40,12 +46,14 @@ require "config/db_conn.php";
                 </div>
                 <button class="new-task mt-3 btn btn-primary d-block w-100">Создать</button>
             </form>
+            <div class="pt-4 pb-1 bg-white">
+                <p class="h2 mb-4 mx-auto col-6">Задачи</p>
+            </div>
         </div>
 
     </header>
     <main class="main container-fluid">
         <div class="container">
-            <h1 class="mb-4 mx-auto col-6">Задачи</h1>
             <ul class="col-md-6 mx-auto todo__list">
                 <?php
 
@@ -54,19 +62,22 @@ require "config/db_conn.php";
 
                     foreach($tasks as $task){
                         ?>
-                <li class="mb-4 bg-light p-3 shadow d-flex justify-content-between">
-                    <div class="col-8">
-                        <p class="h3">
-                            <?= $task[1]?>
-                        </p>
-                        <p>
-                            <?= $task[2]?>
-                        </p>
+                <li class="mb-4 bg-light p-3 shadow task-item">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-8">
+                            <p class="h3">
+                                <?= $task[1]?>
+                            </p>
+                            <p>
+                                <?= $task[2]?>
+                            </p>
+                        </div>
+                        <div class="d-flex flex-column" action="" method="post">
+                            <a href="config/delete_task.php?id=<?=$task[0]?>" class="btn link-danger">Удалить</a>
+                            <button class="ready-btn btn text-success">Сделал</button>
+                        </div>
                     </div>
-                    <form class="d-flex flex-column" action="" method="post">
-                        <a href="config/delete_task.php?id=<?=$task[0]?>" class="btn link-danger">Удалить</a>
-                        <button class="update btn btn-link">Изменить</button>
-                    </form>
+                    <span class="text-black-50 date-task">Создано <?= $task[3]?> в <?= $task[4]?></span>
                 </li>
 
                 <?php

@@ -1,6 +1,20 @@
+li {
+    list-style: none;
+}
+
 .todo__list {
     padding: 0;
 }
-.todo__list{
+
+.todo__list {
     padding: 0;
+}
+
+.date-task {
+    font-size: 12px;
+    display: inline-block;
+}
+
+.ready-active {
+    background-color: rgb(217, 255, 217) !important;
 }

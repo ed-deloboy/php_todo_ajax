@@ -1,30 +1,38 @@
-$( document ).ready(function() {
-   
-    $('form').submit(function(event) {
+let dateBlock = document.querySelector('.date-block');
+let timeBlock = document.querySelector('.time-block');
+let readyBtn = document.querySelectorAll('.ready-btn');
+let itemTaskLi = document.querySelectorAll('.task-item');
 
-        event.preventDefault();
-        
+function datePage() {
+    fetch("../config/date.php")
+        .then(res => {
+            return res.text()
+        })
+        .then(date => {
+            dateBlock.textContent = date;
+        })
+}
 
-        $.ajax({
-            type: "POST",
-            url: "../config/insert_task.php",
-            data: new FormData(this),
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function(){
-                // alert('Новая запись добалена')
-              }
-            });
-      });
-});
+datePage();
 
-$( document ).ready(function() {
-   
-    $('.new-task').click(function(event) {
 
-        event.preventDefault();
-        alert('reeee')
-    
-      });
-});
+function timeonPage() {
+    fetch("../config/time.php")
+        .then(res => {
+            return res.text()
+        })
+        .then(time => {
+            timeBlock.textContent = "Текущее время " + time;
+        })
+}
+
+timeonPage();
+
+setInterval(timeonPage, 1000);
+
+itemTaskLi.forEach(el => {
+    el.addEventListener('click', () => {
+        el.classList.toggle('ready-active');
+    })
+
+})
