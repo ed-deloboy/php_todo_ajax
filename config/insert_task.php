@@ -1,7 +1,6 @@
 <?php
 require "db_conn.php";
 
-var_dump($_POST);
 
 $title = $_POST['title_task'];
 $desc = $_POST['desc_task'];
@@ -28,4 +27,4 @@ $nowtime = date('H:i');
 
 mysqli_query($conn, "INSERT INTO `tasks` (`id`, `task_title`, `task_desc`, `date`, `time`) VALUES (NULL, '$title', '$desc', '$currentDate', '$nowtime')");
 
-header("Location: /");
+// header("Location: /");

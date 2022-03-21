@@ -18,3 +18,10 @@ li {
 .ready-active {
     background-color: rgb(217, 255, 217) !important;
 }
+
+.header__top {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    color: #fff;
+}

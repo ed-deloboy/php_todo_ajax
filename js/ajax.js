@@ -30,9 +30,39 @@ timeonPage();
 
 setInterval(timeonPage, 1000);
 
-itemTaskLi.forEach(el => {
-    el.addEventListener('click', () => {
-        el.classList.toggle('ready-active');
-    })
 
+
+// вывод тасков
+function showTask() {
+    $.ajax({
+        url: "../config/show_task.php",
+        type: "POST",
+        success: (data) => {
+            $(".todo__list").html(data);
+        }
+    });
+}
+
+showTask();
+// ajax запрос на добавление таска
+
+$('.new-task').click(function(el) {
+    el.preventDefault();
+    let title_task = $('[name="title_task"]').val();
+    let desc_task = $('[name="desc_task"]').val();
+
+    $.ajax({
+        url: "../config/insert_task.php",
+        method: "POST",
+        cache: false,
+        data: {
+            'title_task': title_task,
+            'desc_task': desc_task,
+        },
+        success: (data) => {
+            showTask()
+            title_task = "";
+            desc_task = "";
+        }
+    });
 })

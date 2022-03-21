@@ -1,7 +1,5 @@
 <?php
 require "config/db_conn.php";
-
-
 ?>
 
 <!DOCTYPE html>
@@ -20,22 +18,28 @@ require "config/db_conn.php";
 </head>
 
 <body>
-    <header class="mb-5 header col-12 sticky-top p-2">
-        <div class="container-fluid bg-white">
-            <div class="container ">
-                <div class="d-flex time-wrap">
-                    <span class="col-3 date-block"></span>
-                    <span class="col-3 time-block"></span>
-                </div>
+    <div class="container-fluid bg-secondary h-2 header__top">
+        <div class="container">
+            <div class="d-flex time-wrap">
+                <span class="col-3 time-block"></span>
+                <span class="col-4 date-block"></span>
+                <a href="info.html" class="col-3 link text-light">О проекте</a>
             </div>
         </div>
+    </div>
+    <div class="container p-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Главная</li>
+            </ol>
+        </nav>
+    </div>
+    <header class="mb-1 header col-12 sticky-top p-2 bg-white">
         <div class="container">
             <h1 class="mb-4 mx-auto col-6">Мой задачник</h1>
-
-
             <form action="config/insert_task.php" class="bg-light form mx-auto col-6" method="POST">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Нужно сделать..."
+                    <input type="text" class="form-control" id="taskTitleName" placeholder="Нужно сделать..."
                         name="title_task">
                     <label for="floatingInput">Нужно сделать ...</label>
                 </div>
@@ -44,46 +48,16 @@ require "config/db_conn.php";
                         style="height: 100px" name="desc_task"></textarea>
                     <label for="floatingTextarea2">Описание</label>
                 </div>
-                <button class="new-task mt-3 btn btn-primary d-block w-100">Создать</button>
+                <button type="submit" class="new-task mt-3 btn btn-primary d-block w-100">Создать</button>
             </form>
             <div class="pt-4 pb-1 bg-white">
                 <p class="h2 mb-4 mx-auto col-6">Задачи</p>
             </div>
         </div>
-
     </header>
-    <main class="main container-fluid">
+    <main class="main container-fluid bg-light p-2">
         <div class="container">
             <ul class="col-md-6 mx-auto todo__list">
-                <?php
-
-                    $tasks = mysqli_query($conn, "SELECT * FROM `tasks` ORDER BY id DESC");
-                    $tasks = mysqli_fetch_all($tasks);
-
-                    foreach($tasks as $task){
-                        ?>
-                <li class="mb-4 bg-light p-3 shadow task-item">
-                    <div class="d-flex justify-content-between">
-                        <div class="col-8">
-                            <p class="h3">
-                                <?= $task[1]?>
-                            </p>
-                            <p>
-                                <?= $task[2]?>
-                            </p>
-                        </div>
-                        <div class="d-flex flex-column" action="" method="post">
-                            <a href="config/delete_task.php?id=<?=$task[0]?>" class="btn link-danger">Удалить</a>
-                            <button class="ready-btn btn text-success">Сделал</button>
-                        </div>
-                    </div>
-                    <span class="text-black-50 date-task">Создано <?= $task[3]?> в <?= $task[4]?></span>
-                </li>
-
-                <?php
-                    }
-                ?>
-
 
             </ul>
         </div>
